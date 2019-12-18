@@ -61,6 +61,10 @@ public class Owner extends Person {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
     private Set<Pet> pets;
 
+    @Column(name = "age")
+    @NotEmpty
+    private String age;
+
     public String getAddress() {
         return this.address;
     }
@@ -83,6 +87,14 @@ public class Owner extends Person {
 
     public void setTelephone(String telephone) {
         this.telephone = telephone;
+    }
+
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
     }
 
     protected Set<Pet> getPetsInternal() {
