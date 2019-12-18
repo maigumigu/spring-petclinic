@@ -36,15 +36,25 @@ public interface OwnerRepository extends Repository<Owner, Integer> {
 
     /**
      * Retrieve {@link Owner}s from the data store by last name, returning all owners
-     * whose last name <i>starts</i> with the given name.
-     * @param lastName Value to search for
+     * whose last name <i>contains</i> the given name.
+     * @param Name Value to search for
      * @return a Collection of matching {@link Owner}s (or an empty Collection if none
      * found)
      */
-    @Query("SELECT DISTINCT owner FROM Owner owner left join fetch owner.pets WHERE owner.lastName LIKE :lastName%")
+    @Query("SELECT DISTINCT owner FROM Owner owner left join fetch owner.pets WHERE owner.lastName LIKE CONCAT('%',:Name,'%') ")
+//    @Query("SELECT DISTINCT owner FROM Owner owner left join fetch owner.pets WHERE owner.lastName LIKE %:Name%)
     @Transactional(readOnly = true)
-    Collection<Owner> findByLastName(@Param("lastName") String lastName);
-
+    Collection<Owner> findAllByLastNameContaining(@Param("Name") String Name);
+    /**
+     * Retrieve {@link Owner}s from the data store by name, returning all owners
+     * whose first name <i>contains</i> the given name.
+     * @param firstName Value to search for
+     * @return a Collection of matching {@link Owner}s (or an empty Collection if none
+     * found)
+     */
+    @Query("SELECT DISTINCT owner FROM Owner owner left join fetch owner.pets WHERE owner.firstName LIKE CONCAT('%',:Name,'%')")
+    @Transactional(readOnly = true)
+    Collection<Owner> findAllByFirstNameContaining(@Param("Name") String firstName);
     /**
      * Retrieve an {@link Owner} from the data store by id.
      * @param id the id to search for
