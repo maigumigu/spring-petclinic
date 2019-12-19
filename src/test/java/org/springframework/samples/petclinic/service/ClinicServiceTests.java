@@ -100,6 +100,7 @@ class ClinicServiceTests {
         owner.setFirstName("Sam");
         owner.setLastName("Schultz");
         owner.setAddress("4, Evans Street");
+        owner.setAge("14");
         owner.setCity("Wollongong");
         owner.setTelephone("4444444444");
         this.owners.save(owner);
